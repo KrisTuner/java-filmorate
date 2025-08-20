@@ -22,10 +22,7 @@ public class UserController {
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         user.setId(idCounter++);
-        if (user.getName() == null || user.getName().isBlank()) {
-            user.setName(user.getLogin());
-            log.debug("Для пользователя {} установлено имя из логина", user.getLogin());
-        }
+        setUserNameFromLoginIfEmpty(user);
         users.put(user.getId(), user);
         log.info("Добавлен новый пользователь: {}", user);
         return user;
@@ -37,12 +34,16 @@ public class UserController {
             log.warn("Попытка обновления несуществующего пользователя с ID: {}", user.getId());
             throw new NoSuchElementException("Пользователь с id " + user.getId() + " не найден");
         }
-        if (user.getName() == null || user.getName().isBlank()) {
-            user.setName(user.getLogin());
-            log.debug("Для пользователя {} обновлено имя из логина", user.getLogin());
-        }
+        setUserNameFromLoginIfEmpty(user);
         users.put(user.getId(), user);
         log.info("Обновлен пользователь: {}", user);
         return user;
+    }
+
+    private void setUserNameFromLoginIfEmpty(User user) {
+        if (user.getName() == null || user.getName().isBlank()) {
+            user.setName(user.getLogin());
+            log.debug("Для пользователя {} установлено имя из логина", user.getLogin());
+        }
     }
 }

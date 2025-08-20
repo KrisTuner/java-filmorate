@@ -18,6 +18,7 @@ public class Film {
     @PastOrPresent(message = "Дата релиза не может быть в будущем")
     private LocalDate releaseDate;
 
+    @NotNull(message = "Продолжительность обязательна")
     @Positive(message = "Продолжительность должна быть положительным числом")
     private Integer duration;
 }
