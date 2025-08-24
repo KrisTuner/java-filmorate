@@ -1,43 +1,80 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import jakarta.validation.Valid;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/users")
 @Slf4j
 public class UserController {
-    private final Map<Integer, User> users = new HashMap<>();
-    private int idCounter = 1;
+    private final UserStorage userStorage;
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserStorage userStorage, UserService userService) {
+        this.userStorage = userStorage;
+        this.userService = userService;
+    }
 
     @GetMapping
     public Collection<User> findAll() {
-        log.info("Получен запрос на список всех пользователей. Текущее количество: {}", users.size());
-        return users.values();
+        log.info("Получен запрос на список всех пользователей. Текущее количество: {}", userStorage.findAll().size());
+        return userStorage.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public User findUserById(@PathVariable Integer id) {
+        log.info("Получен запрос на получение пользователя с ID: {}", id);
+        return userStorage.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Пользователь с id " + id + " не найден"));
     }
 
     @PostMapping
     public User create(@Valid @RequestBody User user) {
-        user.setId(idCounter++);
         setUserNameFromLoginIfEmpty(user);
-        users.put(user.getId(), user);
-        log.info("Добавлен новый пользователь: {}", user);
-        return user;
+        User createdUser = userStorage.create(user);
+        log.info("Добавлен новый пользователь: {}", createdUser);
+        return createdUser;
     }
 
     @PutMapping
     public User update(@Valid @RequestBody User user) {
-        if (!users.containsKey(user.getId())) {
+        if (!userStorage.existsById(user.getId())) {
             log.warn("Попытка обновления несуществующего пользователя с ID: {}", user.getId());
             throw new NoSuchElementException("Пользователь с id " + user.getId() + " не найден");
         }
         setUserNameFromLoginIfEmpty(user);
-        users.put(user.getId(), user);
-        log.info("Обновлен пользователь: {}", user);
-        return user;
+        User updatedUser = userStorage.update(user);
+        log.info("Обновлен пользователь: {}", updatedUser);
+        return updatedUser;
+    }
+
+    @PutMapping("/{id}/friends/{friendId}")
+    public void addFriend(@PathVariable Integer id, @PathVariable Integer friendId) {
+        userService.addFriend(id, friendId);
+    }
+
+    @DeleteMapping("/{id}/friends/{friendId}")
+    public void removeFriend(@PathVariable Integer id, @PathVariable Integer friendId) {
+        userService.removeFriend(id, friendId);
+    }
+
+    @GetMapping("/{id}/friends")
+    public List<User> getFriends(@PathVariable Integer id) {
+        return userService.getFriends(id);
+    }
+
+    @GetMapping("/{id}/friends/common/{otherId}")
+    public List<User> getCommonFriends(@PathVariable Integer id, @PathVariable Integer otherId) {
+        return userService.getCommonFriends(id, otherId);
     }
 
     private void setUserNameFromLoginIfEmpty(User user) {
