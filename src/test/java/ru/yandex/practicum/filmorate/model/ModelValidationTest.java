@@ -20,6 +20,7 @@ class ModelValidationTest {
             validator = factory.getValidator();
         }
     }
+
     @Test
     void user_InvalidEmail_ShouldFail() {
         User user = new User();
