@@ -6,5 +6,6 @@ import java.util.Optional;
 
 public interface MpaStorage {
     List<AgeRating> getAllMpa();
+
     Optional<AgeRating> getMpaById(Integer id);
 }
