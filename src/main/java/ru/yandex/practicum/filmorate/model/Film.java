@@ -26,8 +26,9 @@ public class Film {
 
     @NotNull(message = "Рейтинг MPA обязателен")
     private AgeRating mpa;
-
     private Set<Genre> genres = new HashSet<>();
+    private Integer mpaId;
+    private Set<Integer> genreIds = new HashSet<>();
 
     public void addGenre(Genre genre) {
         genres.add(genre);
@@ -35,5 +36,9 @@ public class Film {
 
     public void removeGenre(Genre genre) {
         genres.remove(genre);
+    }
+
+    public void addGenreId(Integer genreId) {
+        genreIds.add(genreId);
     }
 }
