@@ -100,6 +100,15 @@
     *   **User:** `sa`
     *   **Password:** `password`
 
+## 📊 Схема базы данных
+
+![Filmorate DB Schema](filmorate_schema.png)
+
+Схема базы данных включает таблицы для пользователей (`users`), фильмов (`films`), жанров (`genres`), рейтингов (`ratings`), а также промежуточные таблицы для связей:
+- `film_genres` — связь фильмов и жанров (многие-ко-многим),
+- `likes` — лайки фильмов пользователями,
+- `friendships` — дружба между пользователями.
+
 ### Примеры SQL-запросов
 
 ### Получить все фильмы
@@ -124,14 +133,4 @@ SELECT u.*
 FROM friendships fr1
 JOIN friendships fr2 ON fr1.friend_id = fr2.friend_id
 JOIN users u ON fr1.friend_id = u.user_id
-
-
-### 📊 Схема базы данных
-
-![Filmorate DB Schema](filmorate_schema.png)
-
-Схема базы данных включает таблицы для пользователей (`users`), фильмов (`films`), жанров (`genres`), рейтингов (`ratings`), а также промежуточные таблицы для связей:
-- `film_genres` — связь фильмов и жанров (многие-ко-многим),
-- `likes` — лайки фильмов пользователями,
-- `friendships` — дружба между пользователями.
 
