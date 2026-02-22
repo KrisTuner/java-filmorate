@@ -33,7 +33,7 @@
 | Логирование | SLF4J, Logbook | Логирование запросов |
 
 
-## Схема базы данных
+## 📊 Схема базы данных
 
 ![Filmorate DB Schema](filmorate_schema.png)
 
