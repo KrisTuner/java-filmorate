@@ -43,8 +43,6 @@ Template repository for Filmorate project.
 | Утилиты | Lombok | Генерация кода |
 | Логирование | SLF4J, Logbook | Логирование запросов |
 
-## 🏗 Архитектура приложения
-
 
 ## Примеры SQL-запросов
 
