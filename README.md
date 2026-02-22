@@ -100,30 +100,7 @@
     *   **User:** `sa`
     *   **Password:** `password`
 
-### Примеры запросов
-
-*   **GET** `/users` — получить всех пользователей.
-*   **POST** `/users` — создать нового пользователя.
-    ```json
-    {
-      "login": "my_login",
-      "email": "mail@example.com",
-      "birthday": "1990-01-01"
-    }
-    ```
-*   **PUT** `/films/{id}/like/{userId}` — поставить лайк фильму.
-*   **GET** `/users/{id}/recommendations` — получить рекомендации для пользователя.
-
-## 📊 Схема базы данных
-
-![Filmorate DB Schema](filmorate_schema.png)
-
-Схема базы данных включает таблицы для пользователей (`users`), фильмов (`films`), жанров (`genres`), рейтингов (`ratings`), а также промежуточные таблицы для связей:
-- `film_genres` — связь фильмов и жанров (многие-ко-многим),
-- `likes` — лайки фильмов пользователями,
-- `friendships` — дружба между пользователями.
-
-## Примеры SQL-запросов
+### Примеры SQL-запросов
 
 ### Получить все фильмы
 ```sql
@@ -147,3 +124,14 @@ SELECT u.*
 FROM friendships fr1
 JOIN friendships fr2 ON fr1.friend_id = fr2.friend_id
 JOIN users u ON fr1.friend_id = u.user_id
+
+
+## 📊 Схема базы данных
+
+![Filmorate DB Schema](filmorate_schema.png)
+
+Схема базы данных включает таблицы для пользователей (`users`), фильмов (`films`), жанров (`genres`), рейтингов (`ratings`), а также промежуточные таблицы для связей:
+- `film_genres` — связь фильмов и жанров (многие-ко-многим),
+- `likes` — лайки фильмов пользователями,
+- `friendships` — дружба между пользователями.
+
