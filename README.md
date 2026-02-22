@@ -32,6 +32,45 @@ SELECT u.*
 FROM friendships fr1
 JOIN friendships fr2 ON fr1.friend_id = fr2.friend_id
 JOIN users u ON fr1.friend_id = u.user_id
+
+
+
+# 🎬 Filmorate — социальная сеть для оценки фильмов
+
+[![Java](https://img.shields.io/badge/Java-21-orange)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.4-brightgreen)](https://spring.io/projects/spring-boot)
+[![H2 Database](https://img.shields.io/badge/H2-Database-blue)](https://www.h2database.com/)
+[![Maven](https://img.shields.io/badge/Maven-3.8-red)](https://maven.apache.org/)
+
+## 📋 О проекте
+
+**Filmorate** — это backend-приложение для любителей кино, которое позволяет пользователям оценивать фильмы, находить друзей по интересам и получать персонализированные рекомендации. Проект разработан в рамках учебного курса по Java-разработке с акцентом на создание REST API, работу с базами данных и построение рекомендательных систем.
+
+### Основные возможности
+- ✅ Управление фильмами (CRUD операции)
+- ✅ Управление пользователями (CRUD операции)
+- ✅ Система лайков и рейтингов
+- ✅ Управление друзьями (запросы, подтверждения)
+- ✅ Каталог жанров (6 предопределенных жанров)
+- ✅ Каталог рейтингов MPA (G, PG, PG-13, R, NC-17)
+- ✅ Интеллектуальные рекомендации фильмов
+- ✅ Топ популярных фильмов
+
+## 🛠 Стек технологий
+
+| Компонент | Технология | Назначение |
+|-----------|------------|------------|
+| Язык программирования | Java 21 | Основной язык разработки |
+| Фреймворк | Spring Boot 3.2.4 | Создание веб-приложения |
+| Работа с БД | Spring JDBC | DAO слой |
+| База данных | H2 Database | Хранение данных |
+| Сборка | Maven | Управление зависимостями |
+| Тестирование | JUnit 5, MockMvc | Модульные и интеграционные тесты |
+| Утилиты | Lombok | Генерация кода |
+| Логирование | SLF4J, Logbook | Логирование запросов |
+
+## 🏗 Архитектура приложения
+
 WHERE fr1.user_id = :id1
   AND fr2.user_id = :id2
   AND fr1.status = 'CONFIRMED'
