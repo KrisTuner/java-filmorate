@@ -126,7 +126,7 @@ JOIN friendships fr2 ON fr1.friend_id = fr2.friend_id
 JOIN users u ON fr1.friend_id = u.user_id
 
 
-## 📊 Схема базы данных
+### 📊 Схема базы данных
 
 ![Filmorate DB Schema](filmorate_schema.png)
 
